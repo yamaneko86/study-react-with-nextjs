@@ -3,7 +3,7 @@ import styles from "@component/styles/Home.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Headline(props) {
+export function Headline(props) {
   return (
     <>
       <h1 className={styles.title}>{props.page} page</h1>
