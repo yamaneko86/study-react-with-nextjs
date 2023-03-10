@@ -23,7 +23,7 @@ export default function Home() {
   const foo = 1;
 
   //アロー関数
-  //再レンダリング時に関数が再生成されなくなる → パフォーマンスの向上
+  //useCallback:再レンダリング時に関数が再生成されなくなる → パフォーマンスの向上
   const handleClick = useCallback((e) => {
     console.log(e.target.href);
     e.preventDefault();
