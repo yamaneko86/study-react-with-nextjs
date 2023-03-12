@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { Main } from "../components/Main/Main";
 import styles from "../styles/Home.module.css";
 import { Header } from "../components/Header/Header";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +28,18 @@ export default function Home() {
     console.log(e.target.href);
     e.preventDefault();
     alert(foo);
+  }, []);
+
+  useEffect(() => {
+    //マウント時に適用
+    console.log("マウント時");
+    document.body.style.backgroundColor = "lightblue";
+
+    ///アンマウント時に適用 → return()が動作する
+    return () => {
+      console.log("アンマウント時");
+      document.body.style.backgroundColor = "";
+    };
   }, []);
 
   return (
