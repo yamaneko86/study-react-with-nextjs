@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { Main } from "../components/Main/Main";
 import styles from "../styles/Home.module.css";
 import { Header } from "../components/Header/Header";
-import { useCallback, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,24 +20,34 @@ const inter = Inter({ subsets: ["latin"] });
 // }
 
 export default function Home() {
-  const foo = 1;
+  const [count, setCount] = useState(1);
+
+  //let foo = 1;
 
   //アロー関数
   //useCallback:再レンダリング時に関数が再生成されなくなる → パフォーマンスの向上
-  const handleClick = useCallback((e) => {
-    console.log(e.target.href);
-    e.preventDefault();
-    alert(foo);
-  }, []);
+  // const handleClick = useCallback((e) => {
+  //   console.log(e.target.href);
+  //   e.preventDefault();
+  //   alert(foo);
+  // }, []);
+
+  const handleClick = (e) => {
+    // setFoo((foo) => {
+    //   return foo + 1;
+    // });
+    setCount((count) => count + 1);
+    setCount((count) => count + 1);
+  };
 
   useEffect(() => {
     //マウント時に適用
-    console.log("マウント時");
+    // console.log("マウント時");
     document.body.style.backgroundColor = "lightblue";
 
     ///アンマウント時に適用 → return()が動作する
     return () => {
-      console.log("アンマウント時");
+      // console.log("アンマウント時");
       document.body.style.backgroundColor = "";
     };
   }, []);
@@ -48,9 +58,8 @@ export default function Home() {
         <title>Index Page</title>
       </Head>
       <Header />
-      <a href={"/about"} onClick={handleClick}>
-        ボタン
-      </a>
+      <h1>{count}</h1>
+      <button onClick={handleClick}>ボタン</button>
       <Main page="index" />
     </div>
   );
