@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { Main } from "../components/Main/Main";
 import styles from "../styles/Home.module.css";
 import { Header } from "../components/Header/Header";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,25 +32,28 @@ export default function Home() {
   //   alert(foo);
   // }, []);
 
-  const handleClick = (e) => {
-    // setFoo((foo) => {
-    //   return foo + 1;
-    // });
-    setCount((count) => count + 1);
-    setCount((count) => count + 1);
-  };
+  const handleClick = useCallback(() => {
+    console.log(count);
+    if (count < 10) {
+      // setCount((count) => {
+      //   return count + 1;
+      // });
+      setCount((foo) => foo + 1);
+    }
+    // setCount((count) => count + 1);
+  }, [count]);
 
   useEffect(() => {
     //マウント時に適用
-    // console.log("マウント時");
+    // console.log(`マウント時：${count}`);
     document.body.style.backgroundColor = "lightblue";
 
     ///アンマウント時に適用 → return()が動作する
     return () => {
-      // console.log("アンマウント時");
+      // console.log(`アンマウント時：${count}`);
       document.body.style.backgroundColor = "";
     };
-  }, []);
+  }, [count]);
 
   return (
     <div className={styles.content}>
