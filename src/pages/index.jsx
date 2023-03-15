@@ -21,6 +21,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [count, setCount] = useState(1);
+  const [text, setText] = useState("");
+  const [isShow, setIsShow] = useState(true);
 
   //let foo = 1;
 
@@ -43,6 +45,19 @@ export default function Home() {
     // setCount((count) => count + 1);
   }, [count]);
 
+  const handleChange = useCallback((e) => {
+    if (e.target.value.length > 5) {
+      alert("5文字以内にしてください");
+      return;
+    }
+    setText(e.target.value.trim());
+  }, []);
+
+  const handleDisplay = useCallback(() => {
+    // isShowがtrueならfalseを返す、逆もまた然り。
+    setIsShow((isShow) => !isShow);
+  }, []);
+
   useEffect(() => {
     //マウント時に適用
     // console.log(`マウント時：${count}`);
@@ -61,8 +76,11 @@ export default function Home() {
         <title>Index Page</title>
       </Head>
       <Header />
-      <h1>{count}</h1>
+      {/* 三項演算子(JSX記法) */}
+      {isShow ? <h1>{count}</h1> : null}
       <button onClick={handleClick}>ボタン</button>
+      <button onClick={handleDisplay}>{isShow ? "非表示" : "表示"}</button>
+      <input type="text" value={text} onChange={handleChange} />
       <Main page="index" />
     </div>
   );
